@@ -4,7 +4,7 @@ import os
 path = os.getcwd()
 
 # Set directory you would like to store data in
-data_directory = '/ritter/share/projects/jeremiah/data/'
+data_directory = 'USER_FILL'
 
 # Set the location of the Brainnetome Atlas and read CSV files with preprocessed data extracted from the atlas
 brainnetome_file = '/utilities/BNA-prob-2mm.nii.gz'
@@ -19,11 +19,11 @@ bids = '/ritter/share/data/UKBB/ukb_data/bids'
 valid_ica_regions = '1  2  3  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22'
 valid_ica_regions = [int(x) - 1 for x in valid_ica_regions.split()]
 
-# Thresholds you choose for
+# Minimum Correlation thresholds you choose for the creation of graph edges.
 THRESHOLDS = [.25, .35]
 
 # Number of MRIs you would like to collect data from
-n_mris = 1000
+n_mris = 50
 
 # Maximum number of folder directories you would like to traverse before quitting the program (stop infinite runs)
 max_files = 25000
