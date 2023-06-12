@@ -17,10 +17,10 @@ CLI.add_argument(
     default=n_mris,
 )
 CLI.add_argument(
-    "--output_directory",  # name on the CLI - drop the `--` for positional/required parameters
-    nargs="*",  # 0 or more values expected => creates a list
+    "--output_directory",
+    nargs="*",
     type=str,
-    default=data_directory,  # default if nothing is provided
+    default=data_directory,
 )
 args = CLI.parse_args()
 n_mris = args.n_mris[0]
@@ -101,11 +101,11 @@ for folder in folders:
                                                                              return_graph_features, return_correlations)
             gyri_volume_features = region_feature_extraction(gyri_vol, brainnetome_gyri_vol)
             lobe_volume_features = region_feature_extraction(lobe_vol, brainnetome_lobe_vol)
-            ica_features = ICA_graph_feature_extraction(ica_time_series_file, THRESHOLDS, valid_ica_regions, True)
+            ica_features = ICA_graph_feature_extraction(ica_time_series_file, THRESHOLDS, valid_ica_regions, return_correlations)
             for sub_features in [gyri_time_series_features, lobe_time_series_features, gyri_volume_features, \
                                  lobe_volume_features, ica_features]:
                 features.update(sub_features)
-            ## Write features to ritter/share/projects/jeremiah/data/feature_dicts
+            ## Write features to output
             with open(features_file, 'w') as data:
                 data.write(str(features))
             files_visited += 1
@@ -118,11 +118,8 @@ for folder in folders:
         break
     if folders_without_necessary_files == max_files:
         break
-if verbose == True:
+if verbose:
     print(str(files_visited) + ' MRIs were processed for feature extraction')
     print(str(folders_without_necessary_files) + " MRI folders were visited but they lacked necessary files for extraction")
     print(str(feature_extraction_failures) + 'MRIs had an error in feature extraction, their IDs were:')
     print(failed_extraction_ids)
-
-
-
