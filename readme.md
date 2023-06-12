@@ -24,8 +24,8 @@ This package has command line tools for the following
 
 
 
-# -OPTIONAL Clean Installation-
-### Likely Only Necessary if One Had Package Version Problems- 
+## -OPTIONAL Clean Installation-
+Likely Only Necessary if One Had Package Version Problems- 
 1. First navigate to the directory you imported code into. Create a new Anaconda environment with python 3.9 to house the project with the right versions of software.
    > conda create --name extract --file requirements.txt
 
