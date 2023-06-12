@@ -1,7 +1,7 @@
 This repository has tools for batch extraction of features from UKBioBank MRIs in the Ritter lab server,
 as well as command line tools for extracting features from individual brains.
 
-# - Functionality overview -
+# Functionality overview
 At the heart of this package are two ideas for features. 
 The first is to calculate graph network features of the brain, like small-worldedness. A graph is built 
 by having regions of the brain represent nodes and taking highly correlated brain regions as deserving an edge between them.
@@ -24,14 +24,14 @@ This package has command line tools for the following
 
 
 
-## -OPTIONAL Clean Installation-
+## OPTIONAL: Clean Installation
 Likely Only Necessary if One Had Package Version Problems- 
 1. First navigate to the directory you imported code into. Create a new Anaconda environment with python 3.9 to house the project with the right versions of software.
    > conda create --name extract --file requirements.txt
 
 2. Run `export PYTHONPATH=$PYTHONPATH:.`
 
-# -Running BIDS feature extraction- 
+# Running BIDS feature extraction
 
 To extract features from the UkBioBank data folders, one must 
 
@@ -58,7 +58,7 @@ This repository is divided into three folders with their contents listed below:
    4. brainnetome_lobes_vol.csv contains the same thing, except at a higher organizational level
    5. example-ica-25.csv is a (with noise added for anonymity) example of the typical input for extract_ICA_features, since UKBB formatted it uniquely
 
-# -Command Line Options-
+# --Command Line Options
 
 One should be able to configure all of their settings except for mandatory inputs simply by altering the config.py file. However in some cases it is helpful in scripting
 to have command line options, so the following options were added for ease of use. Below are a description and example for each option.
