@@ -114,9 +114,9 @@ This repository is divided into three folders with their contents listed below:
 18. Probabilistic volume of regions on gyrus organizational level
 19. Probabilistic volume of all regions calculated as a proportion to the atlas
 20. Signal variance of regions on both lobe and organizational level
--- Features #1-15 repeated on the graph generated with lobe/gyri region signals
+**As well as Features #1-15 repeated on the graph generated with lobe/gyri region signals**
 ### ICA features
--- Features #1-15 repeated on the graph generated with ICA signals
+**Features #1-15 repeated on the graph generated with ICA signals**
 
 # Methods Appendix
 ### On Inverse Transforms
