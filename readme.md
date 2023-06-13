@@ -109,11 +109,11 @@ This repository is divided into three folders with their contents listed below:
 ### Correlation features
 15. Between-region signal correlation
 ### Brainnetome features
-Probabilistic volume of entire brain
-16. Probabilistic volume of regions on lobe organizational level
-17. Probabilistic volume of regions on gyrus organizational level
-18. Probabilistic volume of all regions calculated as a proportion to the atlas
-19. Signal variance of regions on both lobe and organizational level
+16. Probabilistic volume of entire brain
+17. Probabilistic volume of regions on lobe organizational level
+18. Probabilistic volume of regions on gyrus organizational level
+19. Probabilistic volume of all regions calculated as a proportion to the atlas
+20. Signal variance of regions on both lobe and organizational level
 -- Features #1-15 repeated on the graph generated with lobe/gyri region signals
 ### ICA features
 -- Features #1-15 repeated on the graph generated with ICA signals
