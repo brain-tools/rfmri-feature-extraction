@@ -8,6 +8,7 @@ You can jump to the following sections of this readme:
 - [Functionality](#functionality)
 - [Running BIDS feature extraction](#running-bids-feature-extraction)
   - [Clean Install](#optional-clean-installation)
+  - [Extraction](#extraction)
   - [Command Line Options](#command-line-options)
 - [Package File Structure](#package-file-structureorganization)
 - [Full List of Extracted Variables](#full-list-of-extracted-variables)
@@ -49,6 +50,7 @@ Likely Only Necessary if One Had Package Version Problems-
 
 2. Run `export PYTHONPATH=$PYTHONPATH:.`
 
+### Extraction
 To extract features from the UkBioBank data folders, one must 
 
 3. fill in the config file with their desired output destination and other variables. Explanations of each variable are included in the config file.
