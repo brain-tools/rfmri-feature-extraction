@@ -37,7 +37,6 @@ for folder in folders:
         os.chdir(str(folder + '/ses-2/func'))
         cwd = os.getcwd()
         new_cwd = True
-        files = [f for f in os.listdir(cwd) if os.path.isfile(os.path.join(cwd, f))]
         patient = cwd.split('/')[-3]
         # make sure we have needed files, try loading our MRI
         ica_time_series_file = patient + '_ses-2_task-rest_ts-ica-25.txt'
