@@ -34,11 +34,13 @@ and those regions will have direct labels to brain structures, unlike the ICA re
 This package has command line tools for the following
 1. Batch feature extraction. Outputs will be json files read like python dictionaries for each individual brain
    >batch_feature_extraction.py
-2. Graph network feature extraction for a UKBB ICA file
+2. Feature extraction for one patient. User only needs to give patient number and specify output location for one json file.
+   >patient_number_feature_extraction.py
+3. Graph network feature extraction for a UKBB ICA file
    >extract_ICA_features.py
-3. The same graph feature extraction that would apply to a UKBB ICA file, except working with CSV format (UKBB uses double space delimited which is a bit odd)
+4. The same graph feature extraction that would apply to a UKBB ICA file, except working with CSV format (UKBB uses double space delimited which is a bit odd)
    >extract_graph_features_from_time_series.py
-4. Brainnetome feature extraction
+5. Brainnetome feature extraction
    >extract_volume_features.py
 
 
@@ -62,15 +64,16 @@ Note: One can let most features be default and only specify their output folder 
 
 ### Command Line Options
 
-One should be able to configure all of their settings except for mandatory inputs simply by altering the config.py file. However in some cases it is helpful in scripting
-to have command line options, so the following options were added for ease of use. Below are a description and example for each option.
+One should be able to configure all of their settings except for minimal mandatory inputs simply by altering the config.py file. However in some cases it is helpful in scripting to have command line options, so the following options were added for ease of use. Below are a description and example for each option.
 1. Batch feature extraction: n-mris (number of mris) and output_directory
    >batch_feature_extraction.py --n_mris 10 output_directory my/directory/
-2. ICA feature extraction: ica_file (input file), output_file, and get_correlations (Boolean whether to add region vs region correlations into the feature dictionary)
+2. Feature extraction for one patient. User only needs to give patient number and specify output location for one json file.
+   >patient_number_feature_extraction.py --patient_number 1234567890 --output_file output.json
+3. ICA feature extraction: ica_file (input file), output_file, and get_correlations (Boolean whether to add region vs region correlations into the feature dictionary)
    >extract_ICA_features.py --ica_file /utilities/example-ica-25.txt --output_file output.json --get_correlations True
-3. Graph feature extraction: time_series_file (input file), output_file, and get_correlations (Boolean)
+4. Graph feature extraction: time_series_file (input file), output_file, and get_correlations (Boolean)
    >extract_graph_features_from_time_series.py --time_series_file my_input.csv --output_file output.json --get_correlations True
-4. Brainnetome feature extraction: patient_MRI (input MRI file), output_file, brainnetome_in_patient_space (the Brainnetome 
+5. Brainnetome feature extraction: patient_MRI (input MRI file), output_file, brainnetome_in_patient_space (the Brainnetome 
 atlas in utilities, after applying an inverse transform to put it into the shape of the patient's brain, in .nii.gz format), 
 get_correlations and get_graph_features (Booleans)
    >extract_volume_features.py --patient_MRI my_brain.nii.gz --output_file output.json --brainnetome_in_patient_space inverse_brainnetome.nii.gz --get_correlations False --get_graph_features True
