@@ -13,7 +13,7 @@ CLI = argparse.ArgumentParser()
 CLI.add_argument(
     "--patient_number",
     nargs="*",
-    type=int,
+    type=str,
     default="0",
 )
 CLI.add_argument(
@@ -22,6 +22,7 @@ CLI.add_argument(
     type=str,
     default="output.json",
 )
+owd = os.getcwd()
 args = CLI.parse_args()
 patient = args.patient_number[0]
 features_file = args.output_file[0]
@@ -82,7 +83,8 @@ try:
     for sub_features in [gyri_time_series_features, lobe_time_series_features, gyri_volume_features, \
                          lobe_volume_features, ica_features]:
         features.update(sub_features)
-    ## Write features to output
+    ## Write features to output in original working directory
+    os.chdir(owd)
     with open(features_file, 'w') as data:
         data.write(str(features))
 except:
