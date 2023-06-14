@@ -49,6 +49,7 @@ This package has command line tools for the following
 Likely Only Necessary if One Had Package Version Problems- 
 1. First navigate to the directory you imported code into. Create a new Anaconda environment with python 3.9 to house the project with the right versions of software.
    > conda create --name extract --file requirements.txt
+Conda might not like simpleitk, nibabel, and nilearn - users can remove those 3 lines from the requirements file and download them via pip after creating the environment. 
 
 2. Run `export PYTHONPATH=$PYTHONPATH:.`
 
