@@ -106,23 +106,25 @@ This repository is divided into three folders with their contents listed below:
 6. Local Efficiency
 7. Small-World Coefficient I (omega)
 8. Small-World Coefficient II (sigma)
-9. Average Shortest Path Length
-10. Average Node Connectivity
-11. Graph Density
-12. Clustering Coefficient
-13. Transitivity
-14. Number of Subgraphs
+9. Omega Zero Denominator
+10. Sigma Zero Denominator
+11. Average Shortest Path Length
+12. Average Node Connectivity
+13. Graph Density
+14. Clustering Coefficient
+15. Transitivity
+16. Number of Subgraphs
 ### Correlation features
-15. Between-region signal correlation
+17. Between-region signal correlation
 ### Brainnetome features
-16. Probabilistic volume of entire brain
-17. Probabilistic volume of regions on lobe organizational level
-18. Probabilistic volume of regions on gyrus organizational level
-19. Probabilistic volume of all regions calculated as a proportion to the atlas
-20. Signal variance of regions on both lobe and organizational level   
-**As well as Features #1-15 repeated on the graph generated with lobe/gyri region signals**
+18. Probabilistic volume of entire brain
+19. Probabilistic volume of regions on lobe organizational level
+20. Probabilistic volume of regions on gyrus organizational level
+21. Probabilistic volume of all regions calculated as a proportion to the atlas
+22. Signal variance of regions on both lobe and organizational level   
+**As well as Features #1-17 repeated on the graph generated with lobe/gyri region signals**
 ### ICA features
-**Features #1-15 repeated on the graph generated with ICA signals**
+**Features #1-17 repeated on the graph generated with ICA signals**
 
 # Methods Appendix
 ### On Inverse Transforms
@@ -134,9 +136,10 @@ and apply it to the Brainnetome atlas. The order of commands we use are:
 
 If the user don't have a patient->MNI warp field precomputed, they will want to calculate that with [FNIRT](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FNIRT/UserGuide)
 
-### On Graph Splitting
+### On Graph Splitting and Zero Denominator
 Many graph statistics do not function when a graph is not fully connected. Depending on graph connection thresholds chosen by the user as well, it is likely some graphs will 
 have isolated single nodes or splits of regions with different sizes. In the situation where a graph of 25 nodes has a 5 node subgraph and 20 node subgraph that
 are disconnected from each-other, the code is set up to split those subgraphs off and perform graph analysis on them individually. Then the final statistics are calculated with each 
 subgraph being weighted by their size (80% and 20% respectively, in this example)
 
+When networkx calculates the small world coefficients, it generates either random graphs or lattice graphs as part of the normalization, and this can end up with a zero valued clustering coefficient in some graph sizes. Instead of erroring out in these occasions, we included them as a statistic.
