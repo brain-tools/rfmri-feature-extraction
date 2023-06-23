@@ -84,18 +84,18 @@ get_correlations and get_graph_features (Booleans)
 
 This repository is divided into three folders with their contents listed below:
 1. The Feature Extraction Package
-  The Config Subdirectory
-     config.py: needed for setting parameters and input/output locations
-     init.py
-   The extraction_utils.py file which has the function definitions for getting features. 
-   Scripts for calling python from the command line (batch_feature_extraction.py, etc)
-   init.py
+  - The Config Subdirectory
+     - config.py: needed for setting parameters and input/output locations
+     - init.py
+   - The extraction_utils.py file which has the function definitions for getting features. 
+   - Scripts for calling python from the command line (batch_feature_extraction.py, etc)
+   - init.py
 2. Utilities Folder
-   BNA-prob-2mm.nii.gz is a probabalistic atlas from Brainnetome, with 2mm size voxels.
-   BNA_subregions.csv is a file with the regions and corresponding subregions of the Brainnetome atlas listed out
-   brainnetome_gyri_vol.csv contains the probabilistic volume of the Brainnetome atlas for each gyrus, for the purposes of comparing patients brains
-   brainnetome_lobes_vol.csv contains the same thing, except at a higher organizational level
-   example-ica-25.txt is a (with noise added for anonymity) example of the typical input for extract_ICA_features, since UKBB formatted it uniquely
+   - BNA-prob-2mm.nii.gz is a probabalistic atlas from Brainnetome, with 2mm size voxels.
+   - BNA_subregions.csv is a file with the regions and corresponding subregions of the Brainnetome atlas listed out
+   - brainnetome_gyri_vol.csv contains the probabilistic volume of the Brainnetome atlas for each gyrus, for the purposes of comparing patients brains
+   - brainnetome_lobes_vol.csv contains the same thing, except at a higher organizational level
+   - example-ica-25.txt is a (with noise added for anonymity) example of the typical input for extract_ICA_features, since UKBB formatted it uniquely
 
 # Full list of extracted variables:
 ### Graph features
