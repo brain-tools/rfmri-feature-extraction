@@ -3,47 +3,42 @@ from config.config import *
 import argparse
 from nilearn import image
 from nilearn.maskers import NiftiMapsMasker
-
-from feature_extraction.extraction_utils import region_feature_extraction, atlas_time_series_feature_extraction
+import SimpleITK as sitk
+from extraction_utils import region_feature_extraction, atlas_time_series_feature_extraction
 
 CLI = argparse.ArgumentParser()
 CLI.add_argument(
     "--patient_MRI",
-    nargs="*",
     type=str,
     default='',
 )
 CLI.add_argument(
     "--output_file",
-    nargs="*",
     type=str,
     default=data_directory,
 )
 CLI.add_argument(
     "--get_correlations",
-    nargs="*",
     type=bool,
     default=return_correlations,
 )
 CLI.add_argument(
     "--get_graph_features",
-    nargs="*",
     type=bool,
-    default=return_correlations,
+    default=return_graph_features,
 )
 CLI.add_argument(
     "--brainnetome_in_patient_space",
-    nargs="*",
-    type=bool,
+    type=str,
     default="",
 )
 args = CLI.parse_args()
-base_mri = args.patient_MRI[0]
-features_file = args.output_file[0]
-get_correlations = args.get_correlations[0]
-get_graph_features = args.get_graph_features[0]
+base_mri = args.patient_MRI
+features_file = args.output_file
+get_correlations = args.get_correlations
+get_graph_features = args.get_graph_features
 brain = image.load_img(base_mri)
-inverse_brainnetome = args.brainnetome_in_patient_space[0]
+inverse_brainnetome = args.brainnetome_in_patient_space
 inverse_brainnetome_sitk = sitk.GetArrayFromImage(sitk.ReadImage(inverse_brainnetome))
 masker = NiftiMapsMasker(maps_img=inverse_brainnetome, standardize=True)
 time_series = masker.fit_transform(brain)
