@@ -2,11 +2,12 @@ import errno
 from os.path import exists
 from config.config import *
 import argparse
-from feature_extraction.extraction_utils import ICA_graph_feature_extraction, get_correlation_features, \
+import numpy as np
+from extraction_utils import ICA_graph_feature_extraction, get_correlation_features, \
     graph_from_corr_matrix, get_graph_statistics
 
 
-def graph_feature_extraction(ica_file, thresholds, valid_regions, add_correlation_features=False):
+def graph_feature_extraction(ica_file, thresholds, valid_regions = [], add_correlation_features=False):
     """
     take a CSV delimited time series and extract graph features
     :param ica_file: a space delimited file of signals from each ICA region, an example is provided in utilities
@@ -17,6 +18,10 @@ def graph_feature_extraction(ica_file, thresholds, valid_regions, add_correlatio
     """
     features = {}
     df = pd.read_csv(ica_file, header=None, engine='python')
+    ts_df = df.T
+    for index, row in ts_df.iterrows():
+        var_str = str('Region ' + str(index) + ' Signal Variance')
+        features[var_str] = np.var(row)
     corr = df.corr()
     if add_correlation_features:
         features = get_correlation_features(corr, features, "Regions: ")
@@ -25,33 +30,30 @@ def graph_feature_extraction(ica_file, thresholds, valid_regions, add_correlatio
         graph = graph_from_corr_matrix(corr, threshold, valid_regions)
         statistics = get_graph_statistics(graph)
         for k, v in statistics.items():
-            new_key = k + 'at Threshold ' + str(threshold)
+            new_key = k + ' at Threshold ' + str(threshold)
             features[new_key] = v
     return (features)
 
 CLI = argparse.ArgumentParser()
 CLI.add_argument(
     "--time_series_file",
-    nargs="*",
-    type=int,
+    type=str,
     default=n_mris,
 )
 CLI.add_argument(
     "--output_file",
-    nargs="*",
     type=str,
-    default=data_directory,
+    default=data_directory+ "time_series_output.json",
 )
 CLI.add_argument(
     "--get_correlations",
-    nargs="*",
     type=bool,
     default=return_correlations,
 )
 args = CLI.parse_args()
-time_series_file = args.time_series_file[0]
-features_file = args.output_file[0]
-get_correlations = args.get_correlations[0]
+time_series_file = args.time_series_file
+features_file = args.output_file
+get_correlations = args.get_correlations
 
 
 if not exists(time_series_file):
