@@ -12,21 +12,20 @@ import SimpleITK as sitk
 CLI = argparse.ArgumentParser()
 CLI.add_argument(
     "--patient_number",
-    nargs="*",
     type=str,
     default="0",
 )
 CLI.add_argument(
     "--output_file",
-    nargs="*",
     type=str,
     default="output.json",
 )
 owd = os.getcwd()
 args = CLI.parse_args()
-patient = args.patient_number[0]
-features_file = args.output_file[0]
-folder_suffix = 'sub' + str(patient) + '/ses-2/func'
+patient = args.patient_number
+features_file = args.output_file
+patient = "sub-"+str(patient)
+folder_suffix = str(patient) + '/ses-2/func'
 folder = os.path.join(bids, folder_suffix)
 os.chdir(folder)
 cwd = os.getcwd()
