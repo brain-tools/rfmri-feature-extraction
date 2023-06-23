@@ -83,18 +83,19 @@ get_correlations and get_graph_features (Booleans)
 # Package file structure/organization
 
 This repository is divided into three folders with their contents listed below:
-1. the config folder
-   1. config.py: needed for setting parameters and input/output locations
-2. the feature extraction package
-   1. The extraction_utils.py file which has the function definitions for getting features. 
-   2. the scripts for calling python from the command line (batch_feature_extraction.py, etc)
-   3. init.py
-3. Utilities folder
+1. the feature extraction package
+   1. The Config directory
+     1. config.py: needed for setting parameters and input/output locations
+     2. init.py
+   2. The extraction_utils.py file which has the function definitions for getting features. 
+   3. the scripts for calling python from the command line (batch_feature_extraction.py, etc)
+   4. init.py
+2. Utilities folder
    1. BNA-prob-2mm.nii.gz is a probabalistic atlas from Brainnetome, with 2mm size voxels.
    2. BNA_subregions.csv is a file with the regions and corresponding subregions of the Brainnetome atlas listed out
    3. brainnetome_gyri_vol.csv contains the probabilistic volume of the Brainnetome atlas for each gyrus, for the purposes of comparing patients brains
    4. brainnetome_lobes_vol.csv contains the same thing, except at a higher organizational level
-   5. example-ica-25.csv is a (with noise added for anonymity) example of the typical input for extract_ICA_features, since UKBB formatted it uniquely
+   5. example-ica-25.txt is a (with noise added for anonymity) example of the typical input for extract_ICA_features, since UKBB formatted it uniquely
 
 # Full list of extracted variables:
 ### Graph features
@@ -115,7 +116,7 @@ This repository is divided into three folders with their contents listed below:
 15. Transitivity
 16. Number of Subgraphs
 ### Correlation features
-17. Between-region signal correlation
+17. Between-region signal correlation (functional connectivity)
 ### Brainnetome features
 18. Probabilistic volume of entire brain
 19. Probabilistic volume of regions on lobe organizational level
@@ -124,6 +125,7 @@ This repository is divided into three folders with their contents listed below:
 22. Signal variance of regions on both lobe and organizational level   
 **As well as Features #1-17 repeated on the graph generated with lobe/gyri region signals**
 ### ICA features
+23. Signal variance of ICA regions
 **Features #1-17 repeated on the graph generated with ICA signals**
 
 # Methods Appendix
