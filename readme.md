@@ -125,8 +125,7 @@ This repository is divided into two folders and one sub-folder with their conten
 22. Signal variance of regions on both lobe and organizational level   
 **As well as Features #1-17 repeated on the graph generated with lobe/gyri region signals**
 ### ICA features
-23. Signal variance of ICA regions
-**Features #1-17 repeated on the graph generated with ICA signals**
+**Features #1-17 repeated on the graph generated with ICA signals AND Signal Variance**
 
 # Methods Appendix
 ### On Inverse Transforms
