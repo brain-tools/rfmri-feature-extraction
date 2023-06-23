@@ -2,32 +2,28 @@ import errno
 from os.path import exists
 from config.config import *
 import argparse
-from feature_extraction.extraction_utils import ICA_graph_feature_extraction
-
+from extraction_utils import ICA_graph_feature_extraction
 
 CLI = argparse.ArgumentParser()
 CLI.add_argument(
     "--ica_file",
-    nargs="*",
-    type=int,
+    type=str,
     default=n_mris,
 )
 CLI.add_argument(
     "--output_file",
-    nargs="*",
     type=str,
     default=data_directory,
 )
 CLI.add_argument(
     "--get_correlations",
-    nargs="*",
     type=bool,
     default=return_correlations,
 )
 args = CLI.parse_args()
-ica_time_series_file = args.ica_file[0]
-features_file = args.output_file[0]
-get_correlations = args.get_correlations[0]
+ica_time_series_file = args.ica_file
+features_file = args.output_file
+get_correlations = args.get_correlations
 
 
 if not exists(ica_time_series_file):
