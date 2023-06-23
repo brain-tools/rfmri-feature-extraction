@@ -33,9 +33,10 @@ def remove_unwanted_ica_regions(ica_valid_regions, graph):
     :param graph: networkx graph
     :return: networkx graph
     """
-    for node in list(graph.nodes):
-        if node not in ica_valid_regions:
-            graph.remove_node(node)
+    if len(ica_valid_regions)>0:
+        for node in list(graph.nodes):
+            if node not in ica_valid_regions:
+                graph.remove_node(node)
     return (graph)
 
 
@@ -47,7 +48,7 @@ def instantiate_graph_features():
     '''
     features = {}
     GRAPH_FEATURES = ['Isolated Nodes', 'Isolated Pairs', 'Isolated Trios', 'Global Efficiency', \
-                      'Local Efficiency', 'Omega', 'Sigma', 'Average Shortest Path Length', 'Average Node Connectivity', \
+                      'Local Efficiency', 'Omega Zero Denominator', 'Omega', 'Sigma Zero Denominator', 'Sigma', 'Average Shortest Path Length', 'Average Node Connectivity', \
                       'Density', 'Average Clustering', 'Transitivity']
     for feature in GRAPH_FEATURES:
         features[feature] = 0
@@ -83,8 +84,23 @@ def get_small_world_features(graph, features, normalization_term=1):
     :param normalization_term: a float or int used to weight how much a subraph contributes to the feature score
     :return: features dictionary
     """
-    features['Sigma'] += nx.sigma(graph) * normalization_term
-    features['Omega'] += nx.omega(graph) * normalization_term
+    # For sigma and omega, networkx generates random equivalent graphs that can have zero-denominator statistics
+    try:
+        sigma = nx.sigma(graph)
+        if not isinstance(sigma, (int, float)):
+            features['Sigma'] += sigma * normalization_term
+        else:
+            features['Sigma Zero Denominator'] += normalization_term
+    except:
+        features['Sigma Zero Denominator'] += normalization_term
+    try:
+        omega = nx.omega(graph)
+        if not isinstance(omega, (int, float)):
+            features['Omega'] += omega * normalization_term
+        else:
+            features['Omega Zero Denominator'] += normalization_term
+    except:
+        features['Omega Zero Denominator'] += normalization_term
     features['Local Efficiency'] += nx.local_efficiency(graph) * normalization_term
     features['Global Efficiency'] += nx.global_efficiency(graph) * normalization_term
     features['Average Shortest Path Length'] += nx.average_shortest_path_length(graph) * normalization_term
@@ -152,6 +168,12 @@ def ICA_graph_feature_extraction(ica_file, thresholds, valid_regions, add_correl
     """
     features = {}
     df = pd.read_csv(ica_file, sep="  ", header=None, engine='python')
+    #Add signal variances as features as well
+    ts_df = df.T
+    for index, row in ts_df.iterrows():
+        var_str = str('ICA region ' + str(index) + ' Signal Variance')
+        features[var_str] = np.var(row)
+    # Now calculate correlations to generate a graph with
     corr = df.corr()
     if add_correlation_features:
         features = get_correlation_features(corr, features, "ICA Regions: ")
@@ -160,7 +182,7 @@ def ICA_graph_feature_extraction(ica_file, thresholds, valid_regions, add_correl
         graph = graph_from_corr_matrix(corr, threshold, valid_regions)
         statistics = get_graph_statistics(graph)
         for k, v in statistics.items():
-            new_key = 'ICA ' + k + 'at Threshold ' + str(threshold)
+            new_key = 'ICA ' + k + ' at Threshold ' + str(threshold)
             features[new_key] = v
     return (features)
 
@@ -191,7 +213,7 @@ def atlas_time_series_feature_extraction(time_series_df, thresholds=[], add_netw
             graph = graph_from_corr_matrix(corr, threshold, valid_regions)
             statistics = get_graph_statistics(graph)
             for k, v in statistics.items():
-                new_key = 'Brainnetome Gyri ' + k + 'at Threshold ' + str(threshold)
+                new_key = 'Brainnetome Gyri ' + k + ' at Threshold ' + str(threshold)
                 features[new_key] = v
     return (features)
 
