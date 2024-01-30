@@ -1,7 +1,7 @@
 Readme Outline
 =============================
 This repository has tools for batch extraction of features from UKBioBank MRIs in the Ritter lab server,
-as well as command line tools for extracting features from individual brains. 
+as well as command line tools for extracting features from individual brains. Developed and documented by Jeremiah Flannery.
 You can jump to the following sections of this readme:
 
 - [Readme Outline](#readme-outline)
